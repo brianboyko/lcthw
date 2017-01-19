@@ -40,22 +40,41 @@ void Person_destroy(struct Person *who){
 }
 
 void Person_print(struct Person *who){
+  // this takes a memory location as a paremter,
   printf("Name: %s\n", who->name);
   printf("\tAge: %d\n", who->age);
   printf("\tHeight: %d\n", who->height);
   printf("\tWeight: %d\n", who->weight);
 }
 
+void Alternative_person_print(struct Person who){
+  printf(" Name is: %s \n", who.name);
+  printf(" Address is: %p\n", &who.name);
+  printf(" Address of Alice.age is: %p\n", &(who.age));
+}
+
 int main(int argc, char *argv[]){
   //make two people structures:
   struct Person *joe = Person_create("Joe Alex", 32, 64, 140);
   struct Person *frank = Person_create("Frank Blank", 20, 72, 180);
+  struct Person alice;
+  alice.name = "Alice";
+  alice.age = 1;
+  alice.weight = 2;
+  alice.height = 3;
+
+  printf("Alice is at memory location: %p :\n", &alice);
+
+  Person_print(&alice);
+  printf("This is the alternative print\n");
+  Alternative_person_print(alice);
 
   printf("Joe is at memory location: %p :\n", joe);
   Person_print(joe);
 
   printf("Frank is at memory location: %p :\n", frank);
   Person_print(frank);
+
 
   printf("Make everyone age 20 years\n");
 
@@ -70,7 +89,7 @@ int main(int argc, char *argv[]){
 
   //destroy them both in cleanup.
   Person_destroy(joe);
-  Person_destroy(frank); 
+  Person_destroy(frank);
 
   return 0;
 }
